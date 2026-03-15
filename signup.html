@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get started on Facebook</title>
+    <link rel="stylesheet" href="signup-style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+    <a href="login.html" style="text-decoration: none;">
+        <div class="back-arrow">&#10094;</div>
+    </a>
+    
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta Logo" class="meta-logo">
+    <h1>Get started on Facebook</h1>
+    <p class="subtitle">Create an account to connect with friends, family and communities of people who share your interests.</p>
+</header>
+
+        <form id="signup-form">
+            <div class="section-label">Name</div>
+            <div class="row">
+                <input type="text" placeholder="First name" required>
+                <input type="text" placeholder="Surname" required>
+            </div>
+
+            <div class="section-label">Date of birth <span class="info-icon">?</span></div>
+            <div class="row triple">
+                <select id="day"></select>
+                <select id="month"></select>
+                <select id="year"></select>
+            </div>
+
+            <div class="section-label">Gender <span class="info-icon">?</span></div>
+            <div class="row">
+                <select id="gender">
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="section-label">Mobile number or email address</div>
+            <div class="row">
+                <input type="text" placeholder="Mobile number or email address" required>
+            </div>
+            <p class="disclaimer">You may receive notifications from us. <a href="#">Learn why we ask for your contact information</a></p>
+
+            <div class="section-label">Password</div>
+            <div class="row">
+                <input type="password" placeholder="Password" required>
+            </div>
+
+            <div class="policy-container">
+                <p>People who use our service may have uploaded your contact information to Facebook. <a href="#">Learn more</a>.</p>
+                <p>By tapping Submit, you agree to create an account and to Facebook's <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>.</p>
+                <p>The <a href="#">Privacy Policy</a> describes the ways we can use the information we collect when you create an account. For example, we use this information to provide, personalise and improve our products, including ads.</p>
+            </div>
+<div class="button-container">
+    <a href="login.html" style="text-decoration: none;">
+            <button type="submit" class="btn-primary">Submit</button>
+            <button type="button" class="btn-secondary">I already have an account</button>
+    </a>
+</div>
+        </form>
+
+        <footer>
+            <div class="languages">
+                <span>English (UK)</span> <span>Kiswahili</span> <span>Français (France)</span> <span>Español</span> <span>More languages...</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Sign up</a> <a href="#">Log in</a> <a href="#">Messenger</a> <a href="#">Facebook Lite</a> <a href="#">Video</a> <a href="#">Meta Pay</a> <a href="#">Meta Store</a> <a href="#">Meta Quest</a>
+            </div>
+            <p class="copyright">Meta © 2026</p>
+        </footer>
+    </div>
+
+    <script src="signup-script.js"></script>
+</body>
+</html>

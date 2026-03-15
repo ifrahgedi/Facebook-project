@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.getElementById('loginBtn');
 
     loginForm.addEventListener('submit', (e) => {
-        // 1. Prevent the page from refreshing so we can see the logic work
+        // 1. Prevent the page from refreshing
         e.preventDefault();
 
         const email = emailInput.value.trim();
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (email === "" || password === "") {
             alert("Please enter both your email and password.");
             
-            // Highlight empty fields with a red border
             if (email === "") emailInput.style.borderColor = "#f02849";
             if (password === "") passwordInput.style.borderColor = "#f02849";
             return;
@@ -27,27 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
         loginBtn.style.opacity = "0.7";
         loginBtn.style.cursor = "not-allowed";
 
-        // 4. Simulate a network delay (like a real login attempt)
+        // 4. Simulate network delay and THEN redirect
         setTimeout(() => {
-            console.log("Form Data Captured:", { 
-                user: email, 
-                pass: password 
-            });
+            console.log("Login Successful for:", email);
             
-            alert("Login attempt successful! Check the browser console (F12) to see the captured data.");
-            
-            // Reset button state
-            loginBtn.disabled = false;
-            loginBtn.innerText = "Log in";
-            loginBtn.style.opacity = "1";
-            loginBtn.style.cursor = "pointer";
+            // This is the ONLY place the redirect should happen
+            window.location.href = 'home.html'; 
         }, 1500);
     });
 
-    // Reset border colors automatically when the user starts typing again
+    // Reset border colors when user types
     [emailInput, passwordInput].forEach(input => {
         input.addEventListener('input', () => {
             input.style.borderColor = "#dddfe2";
         });
     });
+
+    /* NOTE: I removed the extra setTimeout that was down here. 
+       That was what was causing your "direct jump" crash! 
+    */
 });
