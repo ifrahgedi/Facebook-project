@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB" class="nav-logo">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search Facebook">
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="nav-item active">🏠</div>
+            <div class="nav-item">👥</div>
+            <div class="nav-item">📺</div>
+            <div class="nav-item">🏪</div>
+            <div class="nav-item">🎮</div>
+        </div>
+        <div class="nav-right">
+            <div class="icon-circle">⠿</div>
+            <div class="icon-circle">💬</div>
+            <div class="icon-circle">🔔</div>
+            <div class="profile-nav">
+                <img src="https://via.placeholder.com/40" alt="User">
+                <span class="arrow-down">▼</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-item">
+                <img src="https://via.placeholder.com/40" alt="Profile">
+                <span id="sidebar-username">Your Name</span>
+            </div>
+            <div class="sidebar-item">
+                <span>👥</span>
+                <span>Friends</span>
+            </div>
+            <div class="sidebar-item">
+                <span>📅</span>
+                <span>Events</span>
+            </div>
+            <div class="sidebar-item">
+                <span>🎮</span>
+                <span>Gaming</span>
+            </div>
+        </div>
+
+        <div class="feed">
+            <div class="post-card">
+                <div class="post-header">
+                    <img src="https://via.placeholder.com/40" alt="User">
+                    <div>
+                        <strong id="post-username">John Doe</strong>
+                        <span>2 hours ago</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    Welcome to Facebook! This is your news feed.
+                </div>
+                <div class="post-actions">
+                    <button>👍 Like</button>
+                    <button>💬 Comment</button>
+                    <button>📤 Share</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-sidebar">
+            <div class="ad-card">
+                <h3>Sponsored</h3>
+                <p>Check out this amazing product!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the username from localStorage (set during login)
+        const username = localStorage.getItem('username') || 'Guest';
+        
+        // Update the sidebar username
+        document.getElementById('sidebar-username').textContent = username;
+        
+        // Update the post username
+        document.getElementById('post-username').textContent = username;
+    </script>
+</body>
+</html>
