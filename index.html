@@ -1,90 +1,474 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook</title>
-    <link rel="stylesheet" href="login-style.css">
-</head>
-<body>
-    
-    <div class="main-wrapper">
-        <main class="login-container">
-            <section class="brand-section">
-                <img src="img/facebook.png" alt="Facebook" class="fb-logo">
-                <h1 class="headline">Explore the things <span class="blue-text">you love.</span></h1>
-                
-                <div class="image-collage">
-                    <div class="collage-item main-story">
-                        <img src="img/fb2.jpg" alt="Stories">
-                        <span class="story-timer">16:45</span>
-                    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook Lite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- LOGIN/REGISTER VIEW -->
+      <div id="login-view" class="view-container active" style="align-items:flex-start; padding-top:20px;">
+        <div class="login-box" style="width: 100%; max-width: 400px; margin: 0 auto; padding: 16px;">
+          <h1 class="logo" style="margin-bottom:10px; color:#1877f2; text-align:center;">facebook lite</h1>
+          
+          <!-- LOGIN FORM -->
+          <div id="login-form-container" class="login-form-card window-glass">
+            <input type="text" id="login-mobile-email" placeholder="Mobile number or email address" class="input-field" autocomplete="off" />
+            <input type="password" id="login-password" placeholder="Password" class="input-field" />
+            <div id="login-error" style="color:var(--danger-color);font-size:14px;margin-bottom:10px;display:none;"></div>
+            <button id="btn-login" class="btn btn-primary btn-block ripple">Log In</button>
+            <div style="text-align:center; margin:15px 0;"><a href="#" style="color:#1877f2; text-decoration:none; font-weight:600;">Forgotten password?</a></div>
+            <div class="divider"></div>
+            <button id="btn-show-register" class="btn btn-success btn-block ripple" style="width:auto; margin:0 auto; padding: 10px 16px;">Create New Account</button>
+          </div>
+
+          <!-- REGISTER FORM -->
+          <div id="register-form-container" class="login-form-card window-glass hidden" style="text-align:left;">
+             <h2 style="margin-bottom: 5px;">Sign Up</h2>
+             <p style="color:var(--text-secondary); margin-bottom: 15px; font-size:14px;">It's quick and easy.</p>
+             <div class="divider" style="margin-top:0;"></div>
+             
+             <div style="display:flex; gap:10px; margin-bottom:12px;">
+                <input type="text" id="reg-firstname" placeholder="First name" class="input-field" style="margin:0; width:100%;" />
+                <input type="text" id="reg-surname" placeholder="Surname" class="input-field" style="margin:0; width:100%;" />
+             </div>
+             <input type="text" id="reg-mobile-email" placeholder="Mobile number or email address" class="input-field" />
+             <input type="password" id="reg-password" placeholder="New password" class="input-field" />
+             
+             <label style="color:var(--text-secondary); font-size:12px; margin-bottom:5px; display:block;">Date of birth</label>
+             <input type="date" id="reg-dob" class="input-field" />
+
+             <label style="color:var(--text-secondary); font-size:12px; margin-bottom:5px; display:block;">Gender</label>
+             <div style="display:flex; gap:10px; margin-bottom:12px;">
+                 <label class="input-field" style="flex:1; display:flex; justify-content:space-between; align-items:center; margin:0; cursor:pointer;"><span style="font-size:14px;">Female</span> <input type="radio" name="reg-gender" value="Female" /></label>
+                 <label class="input-field" style="flex:1; display:flex; justify-content:space-between; align-items:center; margin:0; cursor:pointer;"><span style="font-size:14px;">Male</span> <input type="radio" name="reg-gender" value="Male" /></label>
+             </div>
+
+             <div id="register-error" style="color:var(--danger-color);font-size:14px;margin-bottom:10px;display:none;"></div>
+             
+             <button id="btn-submit-register" class="btn btn-success btn-block ripple">Sign Up</button>
+             <div style="text-align:center; margin-top:15px;"><a href="#" id="btn-cancel-register" style="color:#1877f2; text-decoration:none; font-weight:600;">Already have an account?</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN FEED VIEW -->
+      <div id="main-view" class="view-container hidden">
+        <!-- New Complex Header -->
+        <nav class="navbar-complex">
+            <!-- Row 1: Logo and Action Icons -->
+            <div class="nav-top-row">
+                <div class="nav-logo-text">facebook</div>
+                <div class="nav-actions">
+                    <button class="icon-btn-circle" id="btn-plus-menu"><ion-icon name="add-outline"></ion-icon></button>
+                    <button class="icon-btn-circle" id="btn-search-nav" data-target="tab-search"><ion-icon name="search"></ion-icon></button>
+                    <button class="icon-btn-circle" id="nav-btn-hamburger" data-target="tab-hamburger"><ion-icon name="menu-outline"></ion-icon></button>
                     
-                    <div class="collage-item van-trip">
-                        <img src=" img/f1.jpg" alt="Van Trip">
+                    <!-- Plus Dropdown -->
+                    <div id="plus-dropdown" class="window-glass hidden">
+                        <div class="plus-menu-item" id="plus-opt-post"><ion-icon name="create-outline"></ion-icon> Post</div>
+                        <div class="plus-menu-item"><ion-icon name="book-outline"></ion-icon> Story</div>
+                        <div class="plus-menu-item"><ion-icon name="film-outline"></ion-icon> Reel</div>
+                        <div class="plus-menu-item"><ion-icon name="document-text-outline"></ion-icon> Note</div>
                     </div>
+                </div>
+            </div>
+            <!-- Row 2: Navigation Tabs -->
+            <div class="nav-tabs-row">
+                <button class="nav-icon active" data-target="tab-home"><ion-icon name="home"></ion-icon></button>
+                <button class="nav-icon" data-target="tab-friends"><ion-icon name="people-outline"></ion-icon></button>
+                <button class="nav-icon" data-target="tab-messages"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></button>
+                <button class="nav-icon" data-target="tab-notifications"><ion-icon name="notifications-outline"></ion-icon></button>
+                <button class="nav-icon" data-target="tab-reels"><ion-icon name="play-circle-outline"></ion-icon></button>
+            </div>
+        </nav>
 
-                    <div class="collage-item picnic-friends">
-                        <img src="img/f3.jpg" alt="Picnic">
-                        <div class="profile-circle">
-                            <img src="img/f2.jpg" alt="Profile">
-                        </div>
+        <!-- Main Content Area -->
+        <main class="feed-layout" style="margin-top: 105px;">
+
+          <!-- HOME TAB -->
+          <div id="tab-home" class="tab-content active">
+            <div class="page-container" style="width: 100%;">
+            <!-- Create Post block -->
+            <div class="create-post-card card">
+              <div class="create-top">
+                <div class="user-avatar" id="post-user-avatar">?</div>
+                <input type="text" id="post-input" placeholder="What's on your mind?" class="input-field post-input" />
+                <button class="icon-btn-circle" id="btn-add-photo" style="background:transparent; color:#45bd62;"><ion-icon name="images" style="font-size:24px;"></ion-icon></button>
+              </div>
+              <div id="post-preview-container" class="hidden" style="margin: 12px 0 0 0; position: relative;">
+                  <img id="post-preview-image" style="width: 100%; border-radius: 8px; max-height: 300px; object-fit: cover;" />
+                  <button id="btn-remove-preview" style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer;"><ion-icon name="close"></ion-icon></button>
+              </div>
+              <div id="post-feeling-display" class="hidden" style="margin-top: 8px; color: var(--text-secondary); font-size: 14px; display: flex; align-items: center;">
+                  <ion-icon name="happy" style="color: #f7b928; margin-right: 6px;"></ion-icon>
+                  <span>is feeling <strong id="feeling-text">happy</strong></span>
+                  <button id="btn-remove-feeling" style="background:transparent; border:none; color:var(--text-secondary); margin-left: 8px; cursor:pointer;"><ion-icon name="close-circle"></ion-icon></button>
+              </div>
+              <div class="create-bottom" style="display:none;">
+                <input type="file" id="post-image-input" class="hidden" accept="image/*" />
+              </div>
+              <button id="btn-submit-post" class="btn btn-primary btn-block ripple hidden" style="margin-top: 10px;">Post</button>
+            </div>
+
+
+
+            <!-- Stories Section -->
+            <div class="stories-container card">
+                <div class="story-card create-story">
+                    <div class="story-img" style="background:#f0f2f5;">
+                        <ion-icon name="add-circle" style="color:#1877f2; font-size:30px; position:absolute; bottom:-15px; left:50%; transform:translateX(-50%); background:white; border-radius:50%;"></ion-icon>
                     </div>
+                    <span class="story-name">Create Story</span>
+                </div>
+                <div class="story-card">
+                    <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1518002171953-a080ee817e1f?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80');"><div class="story-avatar">D</div></div>
+                    <span class="story-name">Daniel</span>
+                </div>
+                <div class="story-card">
+                    <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80');"><div class="story-avatar">M</div></div>
+                    <span class="story-name">Moha</span>
+                </div>
+                <div class="story-card">
+                    <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80');"><div class="story-avatar">I</div></div>
+                    <span class="story-name">Ifra</span>
+                </div>
+                <div class="story-card">
+                    <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1506059612708-99d6c258160e?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80');"><div class="story-avatar">C</div></div>
+                    <span class="story-name">Caro</span>
+                </div>
+                <div class="story-card">
+                    <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80');"><div class="story-avatar">Q</div></div>
+                    <span class="story-name">Quentin</span>
+                </div>
+            </div>
 
-                    <div class="floating-emoji">😁</div>
-                    <div class="floating-heart">❤️</div>
-                </div>
-            </section>
+            <!-- Feed Stream -->
+            <div id="posts-stream"></div>
+            </div>
+          </div>
 
-            <section class="auth-section">
-                <div class="login-card">
-                    <form id="fb-login-form">
-                        <p class="login-title">Log in to Facebook</p>
-                        <input type="text" id="email" placeholder="Email address or mobile number" class="input-field">
-                        <input type="password" id="password" placeholder="Password" class="input-field">
-                        <button type="submit" id="loginBtn" class="login-btn">Log in</button>
-                        <a href="#" class="forgot-link">Forgotten password?</a>
-                        <hr class="divider">
-                        <div class="create-btn-container">
-                            <a href="signup.html" style="text-decoration: none;">
-                                <button type="button" class="create-account-btn">Create new account</button>
-                            </a>
-                            
-                        </div>
-                    </form>
+          <!-- FEEDS TAB -->
+          <div id="tab-feeds" class="tab-content hidden">
+            <div class="page-container" style="width: 100%;">
+                <h2 class="page-title" style="padding:16px;">Feeds</h2>
+                <!-- Trending Posts Section -->
+                <div id="trending-container" class="card" style="margin-bottom: 16px; display: none;">
+                    <div style="padding: 12px 16px; border-bottom: 1px solid var(--divider);">
+                        <h3 style="margin: 0; font-size: 16px; color: var(--fb-blue); display: flex; align-items: center;"><ion-icon name="trending-up-outline" style="margin-right: 6px;"></ion-icon> Trending Now</h3>
+                    </div>
+                    <div id="trending-posts-stream"></div>
                 </div>
-                <div class="meta-footer-logo">
-                    <img src="img/icons8-meta-48.png" alt="Meta Logo">Meta
+
+                <!-- Feed Stream -->
+                <div id="feeds-posts-stream"></div>
+            </div>
+          </div>
+
+          <!-- HAMBURGER MENU TAB -->
+          <div id="tab-hamburger" class="tab-content hidden">
+             <div class="page-container card" style="padding: 0; background:var(--fb-bg);">
+                 
+                <!-- Profile Link -->
+                <div class="hamburger-profile-link" data-target="tab-profile" style="background:white; padding:16px; margin-bottom:12px; display:flex; align-items:center; cursor:pointer;">
+                    <div class="user-avatar" id="hmbg-avatar" style="width:50px; height:50px; font-size:24px; margin-right:12px;">?</div>
+                    <div>
+                        <h3 id="hmbg-name" style="margin:0;">User</h3>
+                        <p style="color:var(--text-secondary); margin:0; font-size:14px;">View your profile</p>
+                    </div>
                 </div>
-            </section>
+
+                <!-- Main Menu Grid -->
+                <div class="hamburger-grid">
+                    <div class="hamburger-item" data-target="tab-messages"><ion-icon name="chatbubble-ellipses" style="color:#0084ff"></ion-icon><span>Messages</span></div>
+                    <div class="hamburger-item" data-target="tab-groups"><ion-icon name="people" style="color:#1877F2"></ion-icon><span>Groups</span></div>
+                    <div class="hamburger-item" data-target="tab-friends"><ion-icon name="person-add" style="color:#1877F2"></ion-icon><span>Friends</span></div>
+                    <div class="hamburger-item" data-target="tab-reels"><ion-icon name="play-circle" style="color:#f3425f"></ion-icon><span>Reels</span></div>
+                    <div class="hamburger-item" data-target="tab-meta-ai"><ion-icon name="color-wand" style="color:#A13EA1"></ion-icon><span>Meta AI</span></div>
+                    <div class="hamburger-item" data-target="tab-pages"><ion-icon name="flag" style="color:#F2711C"></ion-icon><span>Pages</span></div>
+                    <div class="hamburger-item" data-target="tab-saved"><ion-icon name="bookmark" style="color:#A13EA1"></ion-icon><span>Saved</span></div>
+                    <div class="hamburger-item" data-target="tab-memories"><ion-icon name="time" style="color:#1877F2"></ion-icon><span>Memories</span></div>
+                    <div class="hamburger-item" data-target="tab-birthdays"><ion-icon name="gift" style="color:#36a420"></ion-icon><span>Birthdays</span></div>
+                    <div class="hamburger-item" data-target="tab-events"><ion-icon name="calendar" style="color:#f3425f"></ion-icon><span>Events</span></div>
+                    <div class="hamburger-item" data-target="tab-meta-verified"><ion-icon name="checkmark-circle" style="color:#1877F2"></ion-icon><span>Meta Verified</span></div>
+                    <div class="hamburger-item" data-target="tab-feeds"><ion-icon name="list" style="color:#1877F2"></ion-icon><span>Feeds</span></div>
+                </div>
+
+                <!-- Footer Menu -->
+                <div class="hamburger-footer">
+                    <div class="hamburger-footer-item"><ion-icon name="settings-outline"></ion-icon> Settings and privacy</div>
+                    <div class="hamburger-footer-item"><ion-icon name="help-circle-outline"></ion-icon> Help and support</div>
+                    <div class="hamburger-footer-item"><ion-icon name="person-add-outline"></ion-icon> Add Account</div>
+                    <div class="hamburger-footer-item" id="btn-logout" style="color:var(--danger-color);"><ion-icon name="log-out-outline"></ion-icon> Log out</div>
+                </div>
+             </div>
+          </div>
+
+          <!-- FRIENDS TAB -->
+          <div id="tab-friends" class="tab-content hidden">
+            <div class="page-container card">
+              <h2 class="page-title">Find Friends</h2>
+              <div id="friends-list-container" class="friend-list">
+                 <p style="padding: 16px;">Loading user suggestions...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- REELS TAB (Placeholder built out) -->
+          <div id="tab-reels" class="tab-content hidden">
+             <div class="page-container">
+              <h2 class="page-title card" style="padding: 16px; margin-bottom: 16px;">Reels</h2>
+              <div class="card" style="height:400px; display:flex; align-items:center; justify-content:center; background:black; color:white; border-radius:12px;">
+                 <div style="text-align:center;">
+                    <ion-icon name="play-circle" style="font-size:60px; color:#1877f2;"></ion-icon>
+                    <h3>Awesome African Sunset Reel</h3>
+                    <p>Swipe up for more</p>
+                 </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- META AI TAB -->
+          <div id="tab-meta-ai" class="tab-content hidden">
+            <div class="page-container card" style="padding: 30px; text-align:center;">
+               <ion-icon name="color-wand" style="font-size:80px; color:#A13EA1;"></ion-icon>
+               <h2>Meta AI</h2>
+               <p>Ask anything, from recipes to coding help.</p>
+               <input type="text" class="input-field" placeholder="Ask Meta AI..." />
+               <button class="btn btn-primary">Send</button>
+            </div>
+          </div>
+          
+          <!-- MEMORIES TAB -->
+          <div id="tab-memories" class="tab-content hidden">
+             <div class="page-container card">
+              <h2 class="page-title">On This Day</h2>
+              <p style="padding:16px;">You have no memories today.</p>
+            </div>
+          </div>
+          
+          <!-- BIRTHDAYS TAB -->
+          <div id="tab-birthdays" class="tab-content hidden">
+             <div class="page-container card">
+              <h2 class="page-title">Birthdays</h2>
+              <div class="friend-list">
+                 <div class="friend-item">
+                    <ion-icon name="gift" style="font-size: 40px; color: #36a420"></ion-icon>
+                    <div class="friend-info"><h4>Daniel</h4><p>Today is his birthday!</p></div>
+                    <button class="btn btn-primary">Say Happy Birthday</button>
+                 </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- META VERIFIED TAB -->
+          <div id="tab-meta-verified" class="tab-content hidden">
+              <div class="page-container card" style="padding:30px; text-align:center;">
+                <ion-icon name="checkmark-circle" style="font-size:60px; color:#1877F2;"></ion-icon>
+                <h2>Get Meta Verified</h2>
+                <p>Build trust with a verified badge.</p>
+                <button class="btn btn-primary">Subscribe</button>
+              </div>
+          </div>
+
+          <!-- SEARCH TAB -->
+          <div id="tab-search" class="tab-content hidden">
+            <div class="page-container card" style="padding: 16px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                  <input type="text" class="input-field" id="main-search-input" placeholder="Search on Facebook" style="margin:0; flex:1;" />
+                  <button class="btn btn-primary" id="btn-execute-search">Search</button>
+              </div>
+              <h2 class="page-title" style="margin-top:16px;">Results</h2>
+              <div id="search-results-list" class="friend-list">
+                 <p style="color:var(--text-secondary); padding: 16px;">Search for friends.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROUPS TAB -->
+          <div id="tab-groups" class="tab-content hidden">
+            <div class="page-container card">
+              <h2 class="page-title">Groups</h2>
+              <div class="friend-list">
+                <div class="friend-item">
+                    <ion-icon name="people-circle" style="font-size: 40px; color: #1877F2"></ion-icon>
+                    <div class="friend-info"><h4>Nairobi Tech Community</h4><p>12,403 members</p></div>
+                    <button class="btn" style="background: var(--hover-overlay); padding: 8px 12px; font-size: 14px">Joined</button>
+                </div>
+                <div class="friend-item">
+                    <ion-icon name="people-circle" style="font-size: 40px; color: #36a420"></ion-icon>
+                    <div class="friend-info"><h4>African Photographers</h4><p>5,210 members</p></div>
+                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 14px">Join</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGES TAB -->
+          <div id="tab-pages" class="tab-content hidden">
+            <div class="page-container card">
+              <h2 class="page-title">Pages</h2>
+              <div class="friend-list">
+                <div class="friend-item">
+                    <ion-icon name="flag" style="font-size: 40px; color: #F2711C"></ion-icon>
+                    <div class="friend-info"><h4>Daily Nation Kenya</h4><p>2.4M followers</p></div>
+                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 14px">Like</button>
+                </div>
+                <div class="friend-item">
+                    <ion-icon name="flag" style="font-size: 40px; color: #1877F2"></ion-icon>
+                    <div class="friend-info"><h4>TechCabal</h4><p>850k followers</p></div>
+                    <button class="btn" style="background: var(--hover-overlay); padding: 8px 12px; font-size: 14px">Liked</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAVED TAB -->
+          <div id="tab-saved" class="tab-content hidden">
+            <div class="page-container card">
+              <h2 class="page-title">Saved Items</h2>
+              <div class="friend-list">
+                <div class="friend-item">
+                    <ion-icon name="bookmark" style="font-size: 40px; color: #A13EA1"></ion-icon>
+                    <div class="friend-info"><h4>Jollof Recipe</h4><p>Saved from Post</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EVENTS TAB -->
+          <div id="tab-events" class="tab-content hidden">
+            <div class="page-container card">
+              <h2 class="page-title">Events</h2>
+              <div class="friend-list">
+                <div class="friend-item">
+                    <div style="background: #f3425f; color: white; width: 50px; height: 50px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+                        <span style="font-size: 12px;">MAY</span>
+                        <span>15</span>
+                    </div>
+                    <div class="friend-info"><h4>Lagos Tech Fest</h4><p>Lagos, Nigeria • 4.2k interested</p></div>
+                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 14px">Interested</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MESSAGES TAB -->
+          <div id="tab-messages" class="tab-content hidden">
+            <div class="page-container card" id="messages-list-view" style="width:100%">
+              <h2 class="page-title">Chats</h2>
+              <div class="message-list" id="users-message-list">
+                 <p style="color:var(--text-secondary); padding: 16px;">Loading chats...</p>
+              </div>
+            </div>
+
+            <!-- Chat View -->
+            <div class="page-container card hidden" id="messages-chat-view" style="width:100%; display:flex; flex-direction:column; height: 75vh;">
+              <div style="padding: 12px; border-bottom: 1px solid var(--divider); display:flex; align-items:center;">
+                <button class="btn" id="btn-back-messages" style="background:transparent; color:var(--fb-blue); padding:8px; display:flex; align-items:center;"><ion-icon name="arrow-back" style="font-size:24px"></ion-icon></button>
+                <div class="user-avatar" id="chat-header-avatar" style="margin-left:8px; width:36px; height:36px; font-size:16px;">?</div>
+                <h3 id="chat-other-user" style="margin-left: 12px; flex:1;">User</h3>
+                <button class="btn" id="btn-refresh-chat" style="background:transparent; color:var(--text-secondary); padding:8px;"><ion-icon name="refresh" style="font-size:20px"></ion-icon></button>
+              </div>
+              <div id="chat-messages-container" style="flex:1; overflow-y:auto; padding: 12px; display:flex; flex-direction:column; gap:8px;">
+                <p style="text-align:center; color:var(--text-secondary); font-size:13px;">No messages yet.</p>
+              </div>
+              <div style="padding: 12px; border-top: 1px solid var(--divider); display:flex; align-items:center;">
+                <input type="text" id="chat-input" class="input-field" placeholder="Type a message..." style="border-radius:20px; flex:1;" />
+                <button id="btn-send-chat" class="btn btn-primary" style="border-radius:50%; width:48px; height:48px; margin-left:8px; display:flex; align-items:center; justify-content:center;"><ion-icon name="send" style="font-size:20px"></ion-icon></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- NOTIFICATIONS TAB -->
+          <div id="tab-notifications" class="tab-content hidden">
+            <div class="page-container card">
+              <h2 class="page-title">Notifications</h2>
+              <div class="message-list">
+                <div class="friend-item" style="align-items:flex-start">
+                  <ion-icon name="notifications-circle" style="font-size:40px; color:var(--fb-blue)"></ion-icon>
+                  <div class="friend-info" style="margin-left:12px">
+                    <p><strong>System</strong> welcomed you to Facebook Lite! Enjoy connecting with your roots.</p>
+                    <p style="color:var(--fb-blue); font-size:13px; margin-top:4px">Just now</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROFILE TAB -->
+          <div id="tab-profile" class="tab-content hidden">
+            <div class="page-container card" style="overflow:hidden">
+               <div class="profile-cover"></div>
+               <div class="profile-header-info">
+                 <div class="profile-avatar" id="profile-page-avatar">?</div>
+                 <h2 id="profile-page-name">User Name</h2>
+                 <p class="profile-bio">Web Developer | Tech Enthusiast 🌟</p>
+                 <div class="profile-actions" style="display:flex; gap:8px; margin-top:16px;">
+                    <button class="btn btn-primary" style="flex:1"><ion-icon name="add-circle" style="vertical-align:middle;margin-right:4px"></ion-icon>Add to Story</button>
+                    <button class="btn" style="flex:1; background:var(--hover-overlay); color:var(--text-primary)"><ion-icon name="pencil" style="vertical-align:middle;margin-right:4px"></ion-icon>Edit Profile</button>
+                 </div>
+               </div>
+               <div class="divider" style="margin: 0 16px;"></div>
+               <div style="padding:16px;">
+                  <h3 style="margin-bottom:12px;">About</h3>
+                  <div style="display:flex; align-items:center; color:var(--text-secondary); margin-bottom:8px">
+                    <ion-icon name="briefcase" style="margin-right:8px; font-size:20px;"></ion-icon> Works at Tech Corp
+                  </div>
+                  <div style="display:flex; align-items:center; color:var(--text-secondary); margin-bottom:8px">
+                    <ion-icon name="home" style="margin-right:8px; font-size:20px;"></ion-icon> Lives in Nairobi, Kenya
+                  </div>
+               </div>
+            </div>
+          </div>
+
         </main>
+      </div>
+    </div>
+    
+    <!-- Edit Post Modal -->
+    <div id="edit-post-modal" class="view-container hidden" style="position: fixed; inset: 0; background: rgba(255,255,255,0.95); z-index: 1000; align-items: flex-start; justify-content: center; padding-top:20px;">
+        <div class="page-container card window-glass" style="max-width: 500px; width:100%;">
+            <div style="padding: 16px; border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between;">
+                <h3 style="margin: 0;">Edit Post</h3>
+                <button id="btn-close-edit" style="background: transparent; border: none; font-size: 24px; cursor: pointer;"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <div style="padding: 16px;">
+                <textarea id="edit-post-input" class="input-field" style="width:100%; height:100px; resize:none;" placeholder="Update your post..."></textarea>
+                
+                <div id="edit-preview-container" class="hidden" style="margin-bottom: 12px; position: relative;">
+                    <img id="edit-preview-image" style="width: 100%; border-radius: 8px; max-height: 200px; object-fit: cover;" />
+                    <button id="btn-remove-edit-preview" style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer;"><ion-icon name="close"></ion-icon></button>
+                </div>
+
+                <div class="create-bottom">
+                  <input type="file" id="edit-image-input" class="hidden" accept="image/*" />
+                  <button class="action-btn" id="btn-edit-photo"><ion-icon name="images" style="color:#45bd62"></ion-icon><span>Change Photo</span></button>
+                </div>
+                <button id="btn-update-post" class="btn btn-primary btn-block ripple" style="margin-top: 10px;">Save Changes</button>
+            </div>
+        </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <ul class="language-list">
-                <li>English (UK)</li>
-                <li><a href="#">Kiswahili</a></li>
-                <li><a href="#">Français (France)</a></li>
-                <li><a href="#">Español</a></li>
-                <li><a href="#">Português (Brasil)</a></li>
-                <li><a href="#">العربية</a></li>
-                <li><a href="#">Deutsch</a></li>
-                <li class="plus-btn">+</li>
-            </ul>
-            <hr>
-            <ul class="nav-links">
-                <li><a href="#">Sign up</a></li><li><a href="#">Log in</a></li><li><a href="#">Messenger</a></li>
-                <li><a href="#">Facebook Lite</a></li><li><a href="#">Video</a></li><li><a href="#">Places</a></li>
-                <li><a href="#">Games</a></li><li><a href="#">Marketplace</a></li><li><a href="#">Meta Pay</a></li>
-                <li><a href="#">Meta Store</a></li><li><a href="#">Meta Quest</a></li><li><a href="#">Instagram</a></li>
-                <li><a href="#">Threads</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li>
-                <li><a href="#">Help</a></li><li><a href="#">Contact uploading and non-users</a></li>
-            </ul>
-            <p class="copyright">Meta © 2026</p>
+    <!-- Feeling Selector Modal -->
+    <div id="feeling-modal" class="view-container hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center;">
+        <div class="page-container card window-glass" style="max-width: 400px; max-height: 80vh; overflow-y: auto;">
+            ... (keeping minimalist for now, just to avoid errors)
+            <div style="padding: 16px; border-bottom: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between;">
+                <h3 style="margin: 0;">How are you feeling?</h3>
+                <button id="btn-close-feeling" style="background: transparent; border: none; font-size: 24px; cursor: pointer;"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <div id="feeling-options-list" style="padding: 8px;">
+            </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="login-script.js"></script>
-</body>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
